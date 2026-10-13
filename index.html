@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#090a09" />
+    <title>SoundWave | Your music</title>
+    <link rel="stylesheet" href="styles.css?v=4" />
+    <script src="app.js?v=7" defer></script>
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar" aria-label="Main navigation">
+        <a class="brand" id="brand" href="#home" aria-label="SoundWave home"><span class="brand-mark">≋</span><span>SoundWave</span></a>
+        <p class="nav-label">Menu</p>
+        <nav class="primary-nav">
+          <a class="nav-link is-active" href="#home" data-view="home"><span class="nav-icon" aria-hidden="true">⌂</span>Home</a>
+          <a class="nav-link" href="#search" data-view="search"><span class="nav-icon" aria-hidden="true">⌕</span>Search</a>
+          <a class="nav-link" href="#library" data-view="library"><span class="nav-icon" aria-hidden="true">▤</span>Library</a>
+        </nav>
+        <div class="library-heading"><p class="nav-label">Your library</p><button class="icon-button add-button" id="create-playlist" aria-label="Create playlist" title="Create playlist">+</button></div>
+        <nav class="library-nav">
+          <a class="nav-link" href="#library" data-library-filter="liked"><span class="liked-icon" aria-hidden="true">♥</span>Liked Songs</a>
+          <a class="nav-link" href="#library" data-library-filter="recent"><span class="nav-icon" aria-hidden="true">◷</span>Recently played</a>
+          <div id="sidebar-playlists" class="sidebar-playlists"></div>
+        </nav>
+        <div class="sidebar-bottom"><span class="online-dot"></span><span>Ready when you are</span></div>
+      </aside>
+
+      <main class="main-content" id="home">
+        <header class="topbar">
+          <div class="history-controls"><button class="icon-button history-button" aria-label="Go back" title="Back">‹</button><button class="icon-button history-button" aria-label="Go forward" title="Forward">›</button></div>
+          <label class="search-box"><span aria-hidden="true">⌕</span><input id="search" type="search" aria-label="Search songs, artists, and albums" placeholder="What do you want to play?" autocomplete="off" /></label>
+          <div class="topbar-spacer"></div>
+          <button class="icon-button top-icon" aria-label="Notifications" title="Notifications">♧</button>
+          <button class="profile-button" aria-label="Your profile">V</button>
+        </header>
+        <nav class="mobile-nav" aria-label="Main navigation">
+          <button class="mobile-nav-link is-active" data-view="home"><span aria-hidden="true">⌂</span>Home</button>
+          <button class="mobile-nav-link" data-view="search"><span aria-hidden="true">⌕</span>Search</button>
+          <button class="mobile-nav-link" data-view="library"><span aria-hidden="true">▤</span>Library</button>
+        </nav>
+
+        <div class="view-panel" id="home-view">
+        <section class="welcome-row">
+          <div><p class="eyebrow">TUESDAY, YOUR WAY</p><h1>Good evening</h1></div>
+          <div class="filter-pills" role="group" aria-label="Filter music"><button class="filter-pill is-selected" data-filter="all">All</button><button class="filter-pill" data-filter="music">Music</button><button class="filter-pill" data-filter="podcasts">Podcasts</button></div>
+        </section>
+
+        <section class="quick-grid" id="quick-grid" aria-label="Your music"></section>
+
+        <section class="music-section" id="made-for-you">
+          <div class="section-heading"><div><p class="eyebrow">A LITTLE BIT OF EVERYTHING</p><h2>Made for your day</h2></div><button class="text-button" data-action="show-all">Show all <span>→</span></button></div>
+          <div class="album-rail" id="album-rail"></div>
+        </section>
+
+        <section class="music-section quick-play-section" id="quick-play-section">
+          <div class="section-heading"><div><p class="eyebrow">PICK UP RIGHT WHERE YOU LEFT OFF</p><h2>Quick play</h2></div><button class="text-button" data-action="show-all">Show all <span>→</span></button></div>
+          <div class="track-grid" id="track-grid"></div>
+        </section>
+
+        <section class="music-section recent-section" id="recent-section">
+          <div class="section-heading"><div><p class="eyebrow">BACK IN THE ROTATION</p><h2>Jump back in</h2></div></div>
+          <div class="album-rail recent-rail" id="recent-rail"></div>
+        </section>
+        </div>
+
+        <section class="view-panel search-view" id="search-view" hidden aria-labelledby="search-heading">
+          <div class="section-heading"><div><p class="eyebrow">FIND YOUR NEXT FAVORITE</p><h1 id="search-heading">Search</h1></div></div>
+          <label class="search-box search-page-box"><span aria-hidden="true">⌕</span><input id="search-page-input" type="search" aria-label="Search your music library" placeholder="Songs, artists, or albums" autocomplete="off" /></label>
+          <h2 class="subheading" id="search-results-heading">Your music</h2>
+          <div class="track-grid" id="search-results"></div>
+          <div class="empty-state" id="search-empty" hidden><span class="empty-note" aria-hidden="true">♪</span><h2>No results</h2><p>Try a different song, artist, or album.</p></div>
+        </section>
+
+        <section class="view-panel library-view" id="library-view" hidden aria-labelledby="library-heading">
+          <div class="section-heading library-title-row"><div><p class="eyebrow">YOUR COLLECTION</p><h1 id="library-heading">Your Library</h1></div><button class="text-button create-playlist-action" data-action="create-playlist"><span aria-hidden="true">＋</span> New playlist</button></div>
+          <div class="library-tabs" role="group" aria-label="Filter library">
+            <button class="filter-pill is-selected" data-library-tab="all">All</button>
+            <button class="filter-pill" data-library-tab="playlists">Playlists</button>
+            <button class="filter-pill" data-library-tab="liked">Liked songs</button>
+            <button class="filter-pill" data-library-tab="recent">Recently played</button>
+          </div>
+          <section class="playlist-detail" id="playlist-detail" hidden aria-live="polite">
+            <div class="playlist-detail-heading"><div><p class="eyebrow">PLAYLIST</p><h2 id="playlist-detail-name"></h2><p id="playlist-detail-description"></p></div><div class="playlist-actions"><button class="play-button" id="play-playlist" aria-label="Play playlist">▶</button><button class="icon-button" id="edit-playlist" aria-label="Edit playlist" title="Edit playlist">✎</button><button class="icon-button" id="delete-playlist" aria-label="Delete playlist" title="Delete playlist">×</button></div></div>
+            <div class="track-grid" id="playlist-tracks"></div>
+          </section>
+          <div class="playlist-grid" id="playlist-cards"></div>
+          <div class="track-grid" id="library-tracks"></div>
+          <div class="empty-state" id="library-empty" hidden><span class="empty-note" aria-hidden="true">♪</span><h2 id="library-empty-heading">Nothing here yet</h2><p id="library-empty-copy">Save a few songs to get started.</p></div>
+        </section>
+        <div class="empty-state" id="empty-state" hidden><span class="empty-note">♪</span><h2>No songs found</h2><p>Try another search or choose a different section.</p></div>
+        <footer class="page-footer">A little space for the songs you love.</footer>
+      </main>
+    </div>
+
+    <footer class="player" aria-label="Music player">
+      <div class="player-progress"><input id="seek" type="range" min="0" max="1000" value="0" aria-label="Track progress" /></div>
+      <div class="now-playing"><div class="player-cover cover-art" id="player-cover"><span class="cover-symbol">♪</span></div><div class="now-copy"><p class="now-title" id="now-title">Choose a song</p><p class="now-artist" id="now-artist">Your library is ready</p></div><button class="icon-button like-button" id="player-like" aria-label="Like song" title="Like">♡</button></div>
+      <div class="playback"><div class="playback-buttons"><span class="time-label" id="current-time">0:00</span><button class="icon-button transport-button" id="shuffle" aria-label="Shuffle" title="Shuffle">⤨</button><button class="icon-button transport-button" id="previous" aria-label="Previous track" title="Previous">|‹</button><button class="play-button" id="play-pause" aria-label="Play">▶</button><button class="icon-button transport-button" id="next" aria-label="Next track" title="Next">›|</button><button class="icon-button transport-button" id="repeat" aria-label="Repeat" title="Repeat">↻</button><span class="time-label" id="total-time">0:00</span></div><div class="player-track-name" id="player-track-name">Made for your day</div></div>
+      <div class="player-extras"><button class="icon-button extra-button" aria-label="Now playing view" title="Now playing">▣</button><button class="icon-button extra-button" aria-label="Queue" title="Queue">☷</button><span class="volume-icon">◖))</span><input id="volume" type="range" min="0" max="1" step="0.01" value="0.75" aria-label="Volume" /></div>
+    </footer>
+    <div class="status-message" id="status-message" role="status" aria-live="polite" hidden></div>
+    <dialog class="playlist-dialog" id="playlist-dialog" aria-labelledby="playlist-dialog-title">
+      <form id="playlist-form" method="dialog">
+        <div class="dialog-heading"><div><p class="eyebrow">MAKE IT YOURS</p><h2 id="playlist-dialog-title">Create playlist</h2></div><button class="icon-button dialog-close" type="button" aria-label="Close dialog">×</button></div>
+        <input id="playlist-id" type="hidden" />
+        <label class="form-label" for="playlist-name">Name</label><input class="form-input" id="playlist-name" name="name" maxlength="48" required placeholder="My playlist" />
+        <label class="form-label" for="playlist-description">Description <span>optional</span></label><textarea class="form-input form-textarea" id="playlist-description" name="description" maxlength="140" rows="2" placeholder="A few words about this playlist"></textarea>
+        <fieldset class="track-picker"><legend>Add songs</legend><div id="playlist-track-options"></div></fieldset>
+        <div class="dialog-actions"><button class="filter-pill" type="button" id="cancel-playlist">Cancel</button><button class="save-button" type="submit">Save playlist</button></div>
+      </form>
+    </dialog>
+    <audio id="audio" preload="metadata"></audio>
+  </body>
+</html>
